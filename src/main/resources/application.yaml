@@ -1,3 +1,19 @@
 spring:
   application:
     name: finCore
+
+  datasource:
+    url: jdbc:postgresql://localhost:5434/fincore?serverTimezone=UTC
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: UTC
