@@ -4,6 +4,7 @@ import com.example.finCore.entity.ErrorResponseBody;
 import com.example.finCore.exception.ImmutableFieldException;
 import com.example.finCore.exception.NotFoundException;
 import com.example.finCore.exception.TransactionLimitExceeded;
+import org.hibernate.dialect.lock.OptimisticEntityLockException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -34,6 +35,13 @@ public class GlobalExceptionHandler {
         ErrorResponseBody error=new ErrorResponseBody(ex.getMessage(),
                 HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(exception = OptimisticEntityLockException.class)
+    public ResponseEntity<String> handleOptimisticexcetion(){
+        return new ResponseEntity<>("Account was modified by another Transaction. Please Retry!" ,
+                HttpStatus.CONFLICT);
+
     }
 
 

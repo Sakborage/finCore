@@ -46,6 +46,9 @@ public class Account {
     @Column(name = "created_at", updatable = false)
     private Instant createdAt;
 
+    @Version
+    private Long version;
+
 
     public Long getId() {
         return id;
@@ -102,4 +105,6 @@ public class Account {
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
+
+
 }
