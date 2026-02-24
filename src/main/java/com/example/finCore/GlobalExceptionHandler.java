@@ -3,6 +3,7 @@ package com.example.finCore;
 import com.example.finCore.entity.ErrorResponseBody;
 import com.example.finCore.exception.ImmutableFieldException;
 import com.example.finCore.exception.NotFoundException;
+import com.example.finCore.exception.TransactionLimitExceeded;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -28,8 +29,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-
-
+    @ExceptionHandler(exception = TransactionLimitExceeded.class)
+  public ResponseEntity<ErrorResponseBody> handleTransactionLimitExceeded(TransactionLimitExceeded ex){
+        ErrorResponseBody error=new ErrorResponseBody(ex.getMessage(),
+                HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 
 
 }
